@@ -1,6 +1,7 @@
 package com.example.mprice.mpflowto;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.lvPhotos)
     ListView mPhotoListView;
 
+    @Bind(R.id.swipeContainer)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
     public static final String CLIENT_ID = "e05c462ebd86446ea48a5af73769b602";
     private ArrayList<PhotoModel> photos;
     private PhotoAdapter photoAdapter;
@@ -43,7 +47,19 @@ public class MainActivity extends AppCompatActivity {
 
         makeNetworkRequest();
 
-    }
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                makeNetworkRequest();
+            }
+        });
+        // Configure the refreshing colors
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+}
 
     private void makeNetworkRequest() {
         String URL = "https://api.instagram.com/v1/media/popular?client_id=" + CLIENT_ID;
@@ -69,6 +85,22 @@ public class MainActivity extends AppCompatActivity {
                         photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
                         photo.likes = photoJSON.getJSONObject("likes").getInt("count");
+                        photo.profilePictureURL = photoJSON.getJSONObject("user").getString("profile_picture");
+                        Log.e("police", photoJSON.toString());
+
+                        JSONArray commentsJSON = photoJSON.getJSONObject("comments").getJSONArray("data");
+
+                        for (int j = 0; j < commentsJSON.length(); j++) {
+                            PhotoCommentsModel commentsModel = new PhotoCommentsModel();
+
+                            JSONObject commentJSON = commentsJSON.getJSONObject(i);
+                            Log.e("sdfsda", commentJSON.toString());
+                            commentsModel.profilePictureUrl = commentJSON.optJSONObject("from").getString("profile_picture");
+                            commentsModel.username = commentJSON.getJSONObject("from").getString("username");
+                            commentsModel.comment = commentJSON.getString("text");
+                            photo.addComment(commentsModel);
+                        }
+
 
                         photos.add(photo);
                     }
@@ -76,13 +108,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 photoAdapter.notifyDataSetChanged();
-
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.e("fail", responseString);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
