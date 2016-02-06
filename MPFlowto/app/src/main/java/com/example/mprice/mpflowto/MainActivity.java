@@ -2,6 +2,8 @@ package com.example.mprice.mpflowto;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -12,19 +14,32 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    @Bind(R.id.lvPhotos)
+    ListView mPhotoListView;
+
     public static final String CLIENT_ID = "e05c462ebd86446ea48a5af73769b602";
     private ArrayList<PhotoModel> photos;
+    private PhotoAdapter photoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
         photos = new ArrayList<>();
 
+
+        photoAdapter = new PhotoAdapter(this, 0, photos);
+
+        mPhotoListView.setAdapter(photoAdapter);
 
         makeNetworkRequest();
 
@@ -44,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     photosJSON = response.getJSONArray("data");
 
-                    for (int i = 0 ; i < photosJSON.length(); i++) {
+                    for (int i = 0; i < photosJSON.length(); i++) {
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
 
                         PhotoModel photo = new PhotoModel();
 
-                        photo.userName = photoJSON.getJSONObject("user").getString("userrname");
+                        photo.userName = photoJSON.getJSONObject("user").getString("username");
                         photo.imageCaption = photoJSON.getJSONObject("caption").getString("text");
                         photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
@@ -60,14 +75,14 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
 
                 }
-
+                photoAdapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-
+                Log.e("fail", responseString);
             }
         });
 
