@@ -1,7 +1,6 @@
 package com.example.mprice.mpflowto;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +26,17 @@ public class PhotoCommentsAdapter extends ArrayAdapter<PhotoCommentsModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         PhotoCommentsModel photoModel = getItem(position);
-        Log.e("tag", photoModel.profilePictureUrl + "is at position:" + position);
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo_comment, parent, false);
         }
 
         TextView tvComment = (TextView) convertView.findViewById(R.id.tvComment);
         RoundedImageView rivProfile = (RoundedImageView) convertView.findViewById(R.id.rivCommentProfile);
+        TextView mUsername = (TextView) convertView.findViewById(R.id.tvUsername);
 
 
+        mUsername.setText(photoModel.username);
         tvComment.setText(photoModel.comment);
         rivProfile.setImageResource(0);
 

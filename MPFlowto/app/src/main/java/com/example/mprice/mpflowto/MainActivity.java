@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,14 +11,14 @@ import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.ocpsoft.pretty.time.PrettyTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,14 +44,10 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         photos = new ArrayList<>();
-
-
         photoAdapter = new PhotoAdapter(this, 0, photos);
-
         mPhotoListView.setAdapter(photoAdapter);
 
         makeNetworkRequest();
-
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -67,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 android.R.color.holo_red_light);
 
 
-
         mPhotoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -77,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-}
+    }
 
     private void makeNetworkRequest() {
         String URL = "https://api.instagram.com/v1/media/popular?client_id=" + CLIENT_ID;
@@ -89,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onSuccess(statusCode, headers, response);
 
                 JSONArray photosJSON = null;
-
+                photos.clear();
                 try {
                     photosJSON = response.getJSONArray("data");
 
@@ -98,7 +92,12 @@ public class MainActivity extends AppCompatActivity {
 
                         PhotoModel photo = new PhotoModel();
 
-                        photo.userName = photoJSON.getJSONObject("user").getString("username");
+
+                        photo.userName = photoJSON.getJSONObject("user").optString("full_name");
+                        if (photo.userName == null) {
+                            photo.userName = photoJSON.getJSONObject("user").getString("username");
+                        }
+
                         photo.imageCaption = photoJSON.getJSONObject("caption").getString("text");
                         photo.imageURL = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
@@ -106,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
                         photo.profilePictureURL = photoJSON.getJSONObject("user").getString("profile_picture");
                         long postedTime = photoJSON.getJSONObject("caption").getLong("created_time");
 
-                        photo.postedTime = getDate(postedTime);
+                        PrettyTime p = new PrettyTime();
+                        String timeString = p.format(new Date(postedTime * 1000));
+                        photo.postedTime = timeString;
 
 
                         JSONArray commentsJSON = photoJSON.getJSONObject("comments").getJSONArray("data");
@@ -140,12 +141,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    private String getDate(long time) {
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(time*1000);
-        String date = DateFormat.format("MM/dd mm:ss", cal).toString();
-        return date;
     }
 }

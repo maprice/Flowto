@@ -1,7 +1,7 @@
 package com.example.mprice.mpflowto;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,15 +13,10 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PhotoDetailActivity extends Activity {
-
-
-    @Bind(R.id.rivProfile)
-    ImageView mProfileView;
+public class PhotoDetailActivity extends AppCompatActivity {
 
     @Bind(R.id.ivPhoto)
     ImageView mPhotoView;
-
 
     @Bind(R.id.tvCaption)
     TextView mCaption;
@@ -30,7 +25,8 @@ public class PhotoDetailActivity extends Activity {
     ListView mComments;
 
     private PhotoCommentsAdapter mPhotoCommentAdapter;
-private ArrayList<PhotoCommentsModel> mList;
+    private ArrayList<PhotoCommentsModel> mList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +35,15 @@ private ArrayList<PhotoCommentsModel> mList;
 
         PhotoModel photoModel = getIntent().getParcelableExtra("photoModel");
 
-        mCaption.setText(photoModel.imageCaption);
+        mCaption.setText(photoModel.userName);
+      //  mUsername.setText(photoModel.userName);
+
         mPhotoView.setImageResource(0);
-        mProfileView.setImageResource(0);
+       // mProfileView.setImageResource(0);
 
         Picasso.with(this).load(photoModel.imageURL).into(mPhotoView);
-        Picasso.with(this).load(photoModel.profilePictureURL).into(mProfileView);
+       // Picasso.with(this).load(photoModel.profilePictureURL).into(mProfileView);
         mList = photoModel.comments;
-
 
         mPhotoCommentAdapter = new PhotoCommentsAdapter(this, 0, mList);
 

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp">
 
 
     <com.makeramen.roundedimageview.RoundedImageView
@@ -25,11 +27,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Comment"
-        android:id="@+id/tvComment"
+        android:id="@+id/tvUsername"
         android:layout_toRightOf="@+id/rivCommentProfile"
+        android:textSize="17dp"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:paddingRight="5dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comment"
+        android:id="@+id/tvComment"
+        android:layout_toRightOf="@+id/tvUsername"
         android:textSize="17dp"
         android:maxLines="3"
         android:ellipsize="end"/>
-
-
 </RelativeLayout>
