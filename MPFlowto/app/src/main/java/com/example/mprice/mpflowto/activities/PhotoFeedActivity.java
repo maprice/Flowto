@@ -27,6 +27,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
+/**
+ * Created by mprice on 2/5/16.
+ */
 public class PhotoFeedActivity extends AppCompatActivity {
 
     @Bind(R.id.lvPhotos)

@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * Created by mprice on 2/5/16.
+ */
 public class PhotoDetailActivity extends AppCompatActivity {
 
     @Bind(R.id.ivPhoto)

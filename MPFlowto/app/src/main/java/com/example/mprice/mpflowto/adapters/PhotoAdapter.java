@@ -30,7 +30,6 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
 
     public PhotoAdapter(Context context, int resource, List<PhotoModel> objects) {
         super(context, android.R.layout.simple_list_item_1, objects);
-
     }
 
     static class ViewHolder {
