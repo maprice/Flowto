@@ -42,11 +42,12 @@ public class PhotoCommentsAdapter extends ArrayAdapter<PhotoCommentsModel> {
 
         mUsername.setText(photoModel.username);
         tvComment.setText(photoModel.comment);
-        tvComment.setMaxLines(0);
+        tvComment.setMaxLines(4);
         rivProfile.setImageResource(0);
 
         int dark = getContext().getResources().getColor(R.color.colorPrimaryDark);
         int accents = getContext().getResources().getColor(R.color.colorAccentDark);
+
         SpannableString hashText = new SpannableString(tvComment.getText().toString());
         Matcher matcher = Pattern.compile("#([A-Za-z0-9_-]+)").matcher(hashText);
         while (matcher.find()) {

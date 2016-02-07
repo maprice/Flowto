@@ -15,7 +15,10 @@ Is a photo viewing client leveraging Instagrams popular photos endpoint to fetch
 
 ## Demo
 ### Basic user flow
-![Alt text](/Resources/splashDemoDetail.gif)
+![Alt text](/Resources/splashFlowWinner.gif)
+
+### Pull to Refresh
+![Alt text](/Resources/splashPullToRefresh2.gif)
 
 ### Fast scroll
 ![Alt text](/Resources/splashDemoFastScroll.gif "Smooth scrolling and placeholder images")

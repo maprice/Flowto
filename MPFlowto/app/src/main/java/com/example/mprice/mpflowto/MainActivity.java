@@ -56,11 +56,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // Configure the refreshing colors
-        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                R.color.colorAccent,
+                R.color.colorPrimaryDark,
+                R.color.colorAccentDark);
 
         mPhotoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
