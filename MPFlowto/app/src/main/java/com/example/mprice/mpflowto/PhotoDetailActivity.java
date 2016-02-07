@@ -33,18 +33,12 @@ public class PhotoDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo_detail);
         ButterKnife.bind(this);
 
-
-
         PhotoModel photoModel = getIntent().getParcelableExtra("photoModel");
 
         mCaption.setText(photoModel.userName);
-      //  mUsername.setText(photoModel.userName);
-
         mPhotoView.setImageResource(0);
-       // mProfileView.setImageResource(0);
 
         Picasso.with(this).load(photoModel.imageURL).into(mPhotoView);
-       // Picasso.with(this).load(photoModel.profilePictureURL).into(mProfileView);
         mList = photoModel.comments;
 
         mPhotoCommentAdapter = new PhotoCommentsAdapter(this, 0, mList);

@@ -1,6 +1,8 @@
 package com.example.mprice.mpflowto;
 
 import android.content.Context;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by mprice on 2/5/16.
@@ -56,6 +60,21 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
         ivPhoto.setImageResource(0);
         rivProfile.setImageResource(0);
 
+        int dark = getContext().getResources().getColor(R.color.colorPrimaryDark);
+        int accents = getContext().getResources().getColor(R.color.colorAccentDark);
+
+        SpannableString hashText = new SpannableString(tvCaption.getText().toString());
+        Matcher matcher = Pattern.compile("#([A-Za-z0-9_-]+)").matcher(hashText);
+        while (matcher.find()) {
+            hashText.setSpan(new ForegroundColorSpan(dark), matcher.start(), matcher.end(), 0);
+            tvCaption.setText(hashText);
+        }
+        matcher = Pattern.compile("@([A-Za-z0-9_-]+)").matcher(hashText);
+        while (matcher.find()) {
+            hashText.setSpan(new ForegroundColorSpan(accents), matcher.start(), matcher.end(), 0);
+            tvCaption.setText(hashText);
+        }
+
         Picasso.with(getContext()).load(photoModel.imageURL).placeholder(R.drawable.default_placeholder).into(ivPhoto);
         Picasso.with(getContext()).load(photoModel.profilePictureURL).into(rivProfile);
         return convertView;
@@ -76,6 +95,21 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
             tvUsername.setText(firstComment.username);
             tvComment.setText(firstComment.comment);
             Picasso.with(getContext()).load(firstComment.profilePictureUrl).into(rivCommentProfile);
+
+
+            int dark = getContext().getResources().getColor(R.color.colorPrimaryDark);
+            int accents = getContext().getResources().getColor(R.color.colorAccentDark);
+            SpannableString hashText = new SpannableString(tvComment.getText().toString());
+            Matcher matcher = Pattern.compile("#([A-Za-z0-9_-]+)").matcher(hashText);
+            while (matcher.find()) {
+                hashText.setSpan(new ForegroundColorSpan(dark), matcher.start(), matcher.end(), 0);
+                tvComment.setText(hashText);
+            }
+            matcher = Pattern.compile("@([A-Za-z0-9_-]+)").matcher(hashText);
+            while (matcher.find()) {
+                hashText.setSpan(new ForegroundColorSpan(accents), matcher.start(), matcher.end(), 0);
+                tvComment.setText(hashText);
+            }
 
             commentLayout.addView(commentView);
         }
