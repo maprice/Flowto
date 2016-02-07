@@ -36,6 +36,14 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
         TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
         ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
         RoundedImageView rivProfile = (RoundedImageView) convertView.findViewById(R.id.rivProfile);
+        TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
+        TextView tvPostedTime = (TextView) convertView.findViewById(R.id.tvPostedTime);
+        TextView tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
+
+        tvUsername.setText(photoModel.userName);
+        tvPostedTime.setText(photoModel.postedTime);
+        tvLikes.setText(photoModel.likes + " Likes");
+
 
     // Comment
         LinearLayout llComments = (LinearLayout) convertView.findViewById(R.id.llComments);
@@ -44,8 +52,7 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
             llComments.removeAllViews();
         }
 
-        addComments(3, llComments, photoModel);
-
+        addComments(2, llComments, photoModel);
 
         tvCaption.setText(photoModel.imageCaption);
         ivPhoto.setImageResource(0);
@@ -63,6 +70,8 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
             View commentView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo_comment, null, false);
             TextView tvComment = (TextView) commentView.findViewById(R.id.tvComment);
             RoundedImageView rivCommentProfile = (RoundedImageView) commentView.findViewById(R.id.rivCommentProfile);
+
+
 
             tvComment.setText(firstComment.comment);
             Picasso.with(getContext()).load(firstComment.profilePictureUrl).into(rivCommentProfile);

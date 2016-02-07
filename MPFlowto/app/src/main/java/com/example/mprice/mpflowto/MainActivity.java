@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -101,15 +104,17 @@ public class MainActivity extends AppCompatActivity {
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
                         photo.likes = photoJSON.getJSONObject("likes").getInt("count");
                         photo.profilePictureURL = photoJSON.getJSONObject("user").getString("profile_picture");
-                        Log.e("police", photoJSON.toString());
+                        long postedTime = photoJSON.getJSONObject("caption").getLong("created_time");
+
+                        photo.postedTime = getDate(postedTime);
+
 
                         JSONArray commentsJSON = photoJSON.getJSONObject("comments").getJSONArray("data");
-                        Log.e("arraysc", commentsJSON.toString());
+
                         for (int j = 0; j < commentsJSON.length(); j++) {
                             PhotoCommentsModel commentsModel = new PhotoCommentsModel();
 
                             JSONObject commentJSON = commentsJSON.getJSONObject(j);
-                            Log.e("sdfsda", commentJSON.toString());
                             commentsModel.profilePictureUrl = commentJSON.optJSONObject("from").getString("profile_picture");
                             commentsModel.username = commentJSON.getJSONObject("from").getString("username");
                             commentsModel.comment = commentJSON.getString("text");
@@ -135,5 +140,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private String getDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(time*1000);
+        String date = DateFormat.format("MM/dd mm:ss", cal).toString();
+        return date;
     }
 }

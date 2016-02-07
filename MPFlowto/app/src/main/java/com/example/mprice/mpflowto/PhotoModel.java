@@ -14,6 +14,7 @@ public class PhotoModel implements Parcelable {
     String imageCaption;
     String imageURL;
     String profilePictureURL;
+    String postedTime;
     int imageHeight;
     int likes;
 

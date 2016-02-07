@@ -2,7 +2,6 @@ package com.example.mprice.mpflowto;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,7 +46,7 @@ private ArrayList<PhotoCommentsModel> mList;
         Picasso.with(this).load(photoModel.imageURL).into(mPhotoView);
         Picasso.with(this).load(photoModel.profilePictureURL).into(mProfileView);
         mList = photoModel.comments;
-        Log.e("value of comments", "Comment" + photoModel.comments.get(0).comment + "of size " + mList.size());
+
 
         mPhotoCommentAdapter = new PhotoCommentsAdapter(this, 0, mList);
 

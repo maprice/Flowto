@@ -7,7 +7,14 @@
         android:id="@+id/layoutTop"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#AAAAAA">
+        android:background="@color/backgroundColor">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@drawable/shadow">
+        </View>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -107,7 +114,7 @@
         android:layout_marginRight="23dp"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBelow="3dp"
+        android:layout_marginBottom="3dp"
         android:layout_below="@id/tvCaption"></View>
 
     <LinearLayout
