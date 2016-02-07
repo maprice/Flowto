@@ -26,7 +26,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Bind(R.id.lvPhotos)
     ListView mPhotoListView;
 
