@@ -1,4 +1,4 @@
-package com.example.mprice.mpflowto;
+package com.example.mprice.mpflowto.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.mprice.mpflowto.utils.PhotoUtils;
+import com.example.mprice.mpflowto.R;
+import com.example.mprice.mpflowto.models.PhotoCommentsModel;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 

@@ -1,4 +1,4 @@
-package com.example.mprice.mpflowto;
+package com.example.mprice.mpflowto.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mprice.mpflowto.adapters.PhotoCommentsAdapter;
+import com.example.mprice.mpflowto.models.PhotoCommentsModel;
+import com.example.mprice.mpflowto.models.PhotoModel;
+import com.example.mprice.mpflowto.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

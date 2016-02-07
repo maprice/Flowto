@@ -1,14 +1,17 @@
-package com.example.mprice.mpflowto;
+package com.example.mprice.mpflowto.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.mprice.mpflowto.adapters.PhotoAdapter;
+import com.example.mprice.mpflowto.models.PhotoCommentsModel;
+import com.example.mprice.mpflowto.models.PhotoModel;
+import com.example.mprice.mpflowto.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.ocpsoft.pretty.time.PrettyTime;
@@ -24,7 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class MainActivity extends AppCompatActivity {
+public class PhotoFeedActivity extends AppCompatActivity {
 
     @Bind(R.id.lvPhotos)
     ListView mPhotoListView;
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.swipeContainer)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public static final String CLIENT_ID = "e05c462ebd86446ea48a5af73769b602";
+    private static final String CLIENT_ID = "e05c462ebd86446ea48a5af73769b602";
     private ArrayList<PhotoModel> photos;
     private PhotoAdapter photoAdapter;
 
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         mPhotoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, PhotoDetailActivity.class);
+                Intent intent = new Intent(PhotoFeedActivity.this, PhotoDetailActivity.class);
                 PhotoModel model = photoAdapter.getItem(position);
                 intent.putExtra("photoModel", model);
                 startActivity(intent);
@@ -87,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                     for (int i = 0; i < photosJSON.length(); i++) {
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
-
                         PhotoModel photo = new PhotoModel();
-
 
                         photo.userName = photoJSON.getJSONObject("user").optString("full_name");
                         if (photo.userName == null) {
@@ -107,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                         String timeString = p.format(new Date(postedTime * 1000));
                         photo.postedTime = timeString;
 
-
                         JSONArray commentsJSON = photoJSON.getJSONObject("comments").getJSONArray("data");
 
                         for (int j = 0; j < commentsJSON.length(); j++) {
@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
                             commentsModel.comment = commentJSON.getString("text");
                             photo.addComment(commentsModel);
                         }
-
 
                         photos.add(photo);
                     }
@@ -133,11 +132,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
-                Log.e("fail", responseString);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
-
     }
 }

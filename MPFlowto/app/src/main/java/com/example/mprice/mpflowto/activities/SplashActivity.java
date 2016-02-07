@@ -1,4 +1,4 @@
-package com.example.mprice.mpflowto;
+package com.example.mprice.mpflowto.activities;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -13,7 +13,7 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, PhotoFeedActivity.class);
                 startActivity(intent);
                 finish();
             }

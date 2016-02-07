@@ -1,4 +1,4 @@
-package com.example.mprice.mpflowto;
+package com.example.mprice.mpflowto.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.mprice.mpflowto.utils.PhotoUtils;
+import com.example.mprice.mpflowto.R;
+import com.example.mprice.mpflowto.models.PhotoCommentsModel;
+import com.example.mprice.mpflowto.models.PhotoModel;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +25,8 @@ import butterknife.ButterKnife;
  * Created by mprice on 2/5/16.
  */
 public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
+
+    private static final int COMMENT_COUNT = 2;
 
     public PhotoAdapter(Context context, int resource, List<PhotoModel> objects) {
         super(context, android.R.layout.simple_list_item_1, objects);
@@ -78,22 +84,13 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
         Picasso.with(getContext()).load(photoModel.imageURL).placeholder(R.drawable.default_placeholder).into(viewHolder.ivPhoto);
         Picasso.with(getContext()).load(photoModel.profilePictureURL).into(viewHolder.rivProfile);
 
-
-        if (viewHolder.llComments.getChildCount() > 0) {
-            viewHolder.llComments.removeAllViews();
-        }
-
-        updateComment(2, viewHolder.llComments, photoModel);
-
-       // updateComment(View commentView, photoModel.comments.get(0));
-
+        updateComment(COMMENT_COUNT, viewHolder.llComments, photoModel);
         return convertView;
 
     }
 
     private void updateComment(int count, LinearLayout commentLayout, PhotoModel photoModel) {
         for (int i = 0; i < count; i++) {
-
             View commentView;
             PhotoCommentsModel commentModel;
 
@@ -120,7 +117,6 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
             Picasso.with(getContext()).load(commentModel.profilePictureUrl).into(rivCommentProfile);
 
             PhotoUtils.highlightText(tvComment, getContext());
-
         }
     }
 }

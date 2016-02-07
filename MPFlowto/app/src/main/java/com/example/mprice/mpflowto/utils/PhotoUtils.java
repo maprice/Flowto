@@ -1,9 +1,11 @@
-package com.example.mprice.mpflowto;
+package com.example.mprice.mpflowto.utils;
 
 import android.content.Context;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
+
+import com.example.mprice.mpflowto.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
