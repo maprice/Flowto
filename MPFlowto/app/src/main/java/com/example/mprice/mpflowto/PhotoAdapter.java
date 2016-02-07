@@ -1,7 +1,6 @@
 package com.example.mprice.mpflowto;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         PhotoModel photoModel = getItem(position);
-        Log.d("Thing", photoModel.toString());
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
         }
@@ -41,19 +40,12 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
     // Comment
         LinearLayout llComments = (LinearLayout) convertView.findViewById(R.id.llComments);
 
-        if(llComments.getChildCount() > 0) {
+        if (llComments.getChildCount() > 0) {
             llComments.removeAllViews();
         }
 
-        PhotoCommentsModel firstComment = photoModel.comments.get(1);
-        View commentView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo_comment, parent, false);
-        TextView tvComment = (TextView) commentView.findViewById(R.id.tvComment);
-        RoundedImageView rivCommentProfile = (RoundedImageView) commentView.findViewById(R.id.rivCommentProfile);
+        addComments(3, llComments, photoModel);
 
-        tvComment.setText(firstComment.comment);
-        Picasso.with(getContext()).load(firstComment.profilePictureUrl).into(rivCommentProfile);
-
-        llComments.addView(commentView);
 
         tvCaption.setText(photoModel.imageCaption);
         ivPhoto.setImageResource(0);
@@ -64,4 +56,19 @@ public class PhotoAdapter extends ArrayAdapter<PhotoModel> {
         return convertView;
 
     }
+
+    private void addComments(int count, LinearLayout commentLayout, PhotoModel photoModel) {
+        for (int i = 1; i < count + 1; i++) {
+            PhotoCommentsModel firstComment = photoModel.comments.get(i);
+            View commentView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo_comment, null, false);
+            TextView tvComment = (TextView) commentView.findViewById(R.id.tvComment);
+            RoundedImageView rivCommentProfile = (RoundedImageView) commentView.findViewById(R.id.rivCommentProfile);
+
+            tvComment.setText(firstComment.comment);
+            Picasso.with(getContext()).load(firstComment.profilePictureUrl).into(rivCommentProfile);
+
+            commentLayout.addView(commentView);
+        }
+    }
+
 }

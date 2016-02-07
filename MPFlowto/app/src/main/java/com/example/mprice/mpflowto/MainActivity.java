@@ -1,9 +1,12 @@
 package com.example.mprice.mpflowto;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -59,6 +62,18 @@ public class MainActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
+
+
+        mPhotoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, PhotoDetailActivity.class);
+                PhotoModel model = photoAdapter.getItem(position);
+                intent.putExtra("photoModel", model);
+                startActivity(intent);
+            }
+        });
 }
 
     private void makeNetworkRequest() {
@@ -89,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("police", photoJSON.toString());
 
                         JSONArray commentsJSON = photoJSON.getJSONObject("comments").getJSONArray("data");
-
+                        Log.e("arraysc", commentsJSON.toString());
                         for (int j = 0; j < commentsJSON.length(); j++) {
                             PhotoCommentsModel commentsModel = new PhotoCommentsModel();
 
-                            JSONObject commentJSON = commentsJSON.getJSONObject(i);
+                            JSONObject commentJSON = commentsJSON.getJSONObject(j);
                             Log.e("sdfsda", commentJSON.toString());
                             commentsModel.profilePictureUrl = commentJSON.optJSONObject("from").getString("profile_picture");
                             commentsModel.username = commentJSON.getJSONObject("from").getString("username");
