@@ -3,9 +3,9 @@ Is a photo viewing client leveraging Instagrams popular photos endpoint to fetch
 
 ## Features
 - [x] User can scroll through current popular photos from Instagram
-- [x] Graphic, Caption, Username
-- [x] Relative timestamp, like count, user profile image
-- [x] Pull-to-refresh for popular stream with SwipeRefreshLayout
+- [x] Users can view Graphic, Caption, Username
+- [x] Users can view Relative timestamp, like count, user profile image
+- [x] Pull-to-refresh with SwipeRefreshLayout
 - [x] Show latest two comments for each photo
 - [x] Display each user profile image using a RoundedImageView
 - [x] Placeholder graphic for each image during loading
@@ -20,7 +20,7 @@ Is a photo viewing client leveraging Instagrams popular photos endpoint to fetch
 ### Fast scroll
 ![Alt text](/Resources/splashDemoFastScroll.gif "Smooth scrolling and placeholder images")
 
-### Open Source Libraies Used
+### Open Source Libraries Used
 - [ButterKnife](http://jakewharton.github.io/butterknife/) Annotation library to reduce view boilerplate
 - [Picasso](https://github.com/square/picasso) Image downloading and caching library 
 - [Prettytime](http://www.ocpsoft.org/prettytime/) Timestamp formatting
@@ -33,7 +33,7 @@ Is a photo viewing client leveraging Instagrams popular photos endpoint to fetch
 License
 --------
 
-    Copyright 2016 Mike Price, Inc.
+    Copyright 2016 Mike Price.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
