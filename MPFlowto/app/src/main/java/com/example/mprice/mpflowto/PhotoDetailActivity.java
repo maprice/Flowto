@@ -33,6 +33,8 @@ public class PhotoDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo_detail);
         ButterKnife.bind(this);
 
+
+
         PhotoModel photoModel = getIntent().getParcelableExtra("photoModel");
 
         mCaption.setText(photoModel.userName);

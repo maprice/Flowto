@@ -54,7 +54,7 @@
         android:maxLines="1"
         android:text="UserName"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
@@ -66,7 +66,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="PostedTime"
-        android:textSize="15dp" />
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/ivHeart"
@@ -89,7 +89,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="1337"
-        android:textSize="15dp" />
+        android:textSize="15sp" />
 
 
 
@@ -114,7 +114,7 @@
         android:gravity="center"
         android:maxLines="3"
         android:text="Caption"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="italic" />
 
     <View
