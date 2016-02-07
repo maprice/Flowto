@@ -1,5 +1,7 @@
 # ![Alt text](/Resources/flowto_logo.png "Its like photos, only with more flow")
-Is a photo viewing client leveraging Instagrams popular photos endpoint to fetch and display the most popular posts from the past few hours.
+###### H6
+"Photos + Flow = Flowtos"
+Is a photo viewing client leveraging Instagram's popular photos endpoint to fetch and display the most popular posts from the past few hours.
 
 ## Features
 - [x] User can scroll through current popular photos from Instagram
@@ -12,6 +14,9 @@ Is a photo viewing client leveraging Instagrams popular photos endpoint to fetch
 - [x] Allow user to view all comments for an image within a separate activity
 - [x] [ButterKnife](http://jakewharton.github.io/butterknife/) annotation library to reduce view boilerplate
 - [x] Splash Screen
+- [x] #Hashtag and @Mentions highlighting with SpannableString and Matcher
+- [x] ViewHolder pattern for smooth scrolling
+
 
 ## Demo
 ### Basic user flow
