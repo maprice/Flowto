@@ -1,6 +1,5 @@
 # ![Alt text](/Resources/flowto_logo.png "Its like photos, only with more flow")
-###### H6
-"Photos + Flow = Flowtos"
+###### "Photos + Flow = Flowtos"
 Is a photo viewing client leveraging Instagram's popular photos endpoint to fetch and display the most popular posts from the past few hours.
 
 ## Features
